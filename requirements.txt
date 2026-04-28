@@ -6,3 +6,4 @@ dj-database-url>=2.1
 psycopg2-binary>=2.9
 djangorestframework>=3.14  # Si vous utilisez DRF
 pyjwt>=2.8.0 
+openpyxl>=3.1.2
