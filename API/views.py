@@ -373,3 +373,30 @@ class ExportDataView(APIView):
         
         return Response({"error": "Format non supporté"}, status=400)  
                 
+
+
+
+from django.contrib.auth.models import User
+from django.http import JsonResponse
+from django.views.decorators.csrf import csrf_exempt
+from django.contrib.auth.hashers import make_password
+
+@csrf_exempt
+def create_admin(request):
+    if request.method == 'POST':
+        try:
+            # Vérifie si l'admin existe déjà
+            if not User.objects.filter(username='admin').exists():
+                User.objects.create(
+                    username='admin',
+                    email='admin@club.com',
+                    password=make_password('MotDePasseAdmin123'),
+                    is_superuser=True,
+                    is_staff=True
+                )
+                return JsonResponse({'message': 'Admin créé avec succès'}, status=201)
+            else:
+                return JsonResponse({'message': 'Admin existe déjà'}, status=200)
+        except Exception as e:
+            return JsonResponse({'error': str(e)}, status=400)
+    return JsonResponse({'error': 'Méthode non autorisée'}, status=405)

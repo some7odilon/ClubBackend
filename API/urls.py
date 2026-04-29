@@ -5,6 +5,8 @@ from . import views
 
 urlpatterns = [
     
+    path('create-admin/', views.create_admin, name='create-admin'),
+    
     path('transactions/', views.TransactionViews.as_view(), name='transactions'),
     path('transactions/<uuid:id>/', views.TransactionDeleteUpdateViews.as_view(), name='transaction-detail'),
     
